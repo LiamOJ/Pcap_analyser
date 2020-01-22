@@ -1,0 +1,41 @@
+Author: LiamOJ
+Last edit: 08/12/2019
+
+Purpose:
+This is a basic packet capture analysis script. It will take in a single pcap file and produce the following output:
+stdout...
+- Data type breakdown
+- unique emails found
+- Full URIs and filenames found
+- IP Src -> Dst exchanges with frequency counts
+Opens...
+- Line chart of network activity
+- Directed, weighted graph of network activity
+- Discoverable destination points on google earth (must be default for kml files)
+Saves: Line chart, Graph, Json file of exchanges and counts, kml file with locations
+
+Use:
+- Run from pcap_analyser.py module. 
+- pcap file must be in cwd of script
+- Will create save sub-directory in cwd
+- Current normalisation range is 0.4 to 4, vary according to pcap size
+- There is a controller dictionary in main, it allows easy passing of multiple values between modules and is currently in use
+- IP geolocation database must be in cwd
+
+Python specs/modules:
+- Non-typical modules required: Numpy, matplotlib, geolites geolocation, dpkt, networkx. 
+- Currently works in 3.7 without issue
+
+Extensibility/Future Proofing:
+- Hard coded values largely kept at top of main
+- Email parser could trivially be extended to parse via regex for any text on the designated ports/encoding/segment data protocol
+- Dictionary used for storing dpkt codes for data types, allowing considerable extension (display is automatically generated for each dict key)
+- Graph and line charts can be manipulated from hardcoded values in main
+- URI search employs list populated from main, allowing search for any desired file type with trivial change
+- Functions use returns and parsing/printing performed in main
+
+Known Issues:
+- Google earth must be installed and set as default for kml files
+- Limited graph lib makes it particularly unweildy for medium and large pcaps. (would suggest pygraphiz to improve)
+- In several places ARP has been handled through a hardcoded condition. A simpler solution would be ideal.
+- Some issues in Linux with os.walk
